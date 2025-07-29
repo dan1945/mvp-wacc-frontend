@@ -224,7 +224,7 @@ export const WACCPreviewCard: React.FC<EnhancedWACCPreviewCardProps> = memo(({
             </div>
             
             <Text variant="small">
-              Last updated: {result.calculationTimestamp.toLocaleTimeString()}
+              Last updated: {new Date(result.calculationTimestamp).toLocaleTimeString()}
             </Text>
           </div>
         </div>

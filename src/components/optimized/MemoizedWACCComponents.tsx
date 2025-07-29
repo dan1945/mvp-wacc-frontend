@@ -428,7 +428,7 @@ export const OptimizedWACCResult = memo<OptimizedWACCResultProps>(({
         header={
           <Text variant="xxLarge" weight="bold">WACC Calculation Result</Text>
         }
-        description={`Calculated on ${result.calculationTimestamp.toLocaleString()}`}
+        description={`Calculated on ${new Date(result.calculationTimestamp).toLocaleString()}`}
       />
       <CardPreview>
         <div className="space-y-6">
