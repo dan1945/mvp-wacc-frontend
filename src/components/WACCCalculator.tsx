@@ -15,7 +15,7 @@ import {
   Calculator24Filled,
   DocumentTable24Regular,
   Save24Regular,
-  Restore24Regular,
+  ArrowReset24Regular,
   ErrorCircle24Regular,
   Checkmark24Filled
 } from '@fluentui/react-icons';
@@ -493,7 +493,7 @@ export const WACCCalculator: React.FC = () => {
           
           <Button
             appearance="secondary"
-            icon={<Restore24Regular />}
+            icon={<ArrowReset24Regular />}
             onClick={handleRestoreData}
             aria-label="Restore WACC data from local storage or Excel worksheet"
             aria-describedby="restore-data-help"
