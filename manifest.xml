@@ -2,23 +2,22 @@
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" 
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
            xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" 
-           xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" 
            xsi:type="TaskPaneApp">
 
   <!-- Basic Add-in Information -->
   <Id>8B6B6C3F-8B9A-4A8A-9A8A-8B6B6C3F8B9A</Id>
-  <Version>1.0.0</Version>
+  <Version>1.0.1</Version>
   <ProviderName>Werx Solutions</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="WACC Calculator" />
   <Description DefaultValue="Modern WACC Calculator with guided input, real-time preview, and Excel integration" />
-  <IconUrl DefaultValue="https://localhost:3000/assets/images/icon-32.png" />
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/images/icon-64.png" />
-  <SupportUrl DefaultValue="https://github.com/your-org/werx-modern-wacc-calculator" />
+  <IconUrl DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-64.png" />
+  <SupportUrl DefaultValue="https://github.com/dan1945/mvp-wacc-frontend" />
 
   <!-- Office App Capabilities -->
   <AppDomains>
-    <AppDomain>https://localhost:3000</AppDomain>
+    <AppDomain>https://mvp-wacc-frontend.vercel.app</AppDomain>
   </AppDomains>
 
   <!-- Host Applications -->
@@ -26,9 +25,16 @@
     <Host Name="Workbook" />
   </Hosts>
 
+  <!-- Requirements -->
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="ExcelApi" MinVersion="1.1" />
+    </Sets>
+  </Requirements>
+
   <!-- Default Settings -->
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://localhost:3000/taskpane.html" />
+    <SourceLocation DefaultValue="https://mvp-wacc-frontend.vercel.app/taskpane.html" />
   </DefaultSettings>
 
   <!-- Permissions -->
@@ -37,37 +43,9 @@
   <!-- Version Overrides -->
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
 
-    <!-- Requirements -->
-    <Requirements>
-      <Sets DefaultMinVersion="1.1">
-        <Set Name="ExcelApi" MinVersion="1.1" />
-      </Sets>
-    </Requirements>
-
     <!-- Host Applications -->
     <Hosts>
       <Host xsi:type="Workbook">
-
-        <!-- Runtime that loads the task pane -->
-        <Runtimes>
-          <Runtime resid="WACCCalculator.Url" lifetime="long" />
-        </Runtimes>
-
-        <!-- All form factors -->
-        <AllFormFactors>
-          <ExtensionPoint xsi:type="CustomFunctions">
-            <Script>
-              <SourceLocation resid="WACCCalculator.Functions.Url" />
-            </Script>
-            <Page>
-              <SourceLocation resid="WACCCalculator.Functions.Page.Url" />
-            </Page>
-            <Metadata>
-              <SourceLocation resid="WACCCalculator.Functions.Metadata.Url" />
-            </Metadata>
-            <Namespace>WACC</Namespace>
-          </ExtensionPoint>
-        </AllFormFactors>
 
         <!-- Desktop form factor -->
         <DesktopFormFactor>
@@ -104,23 +82,6 @@
                   </Action>
                 </Control>
 
-                <!-- Quick Generate Button -->
-                <Control xsi:type="Button" id="QuickGenerateButton">
-                  <Label resid="QuickGenerate.Label" />
-                  <Supertip>
-                    <Title resid="QuickGenerate.Label" />
-                    <Description resid="QuickGenerate.Tooltip" />
-                  </Supertip>
-                  <Icon>
-                    <bt:Image size="16" resid="WACCCalculator.Generate16" />
-                    <bt:Image size="32" resid="WACCCalculator.Generate32" />
-                    <bt:Image size="80" resid="WACCCalculator.Generate80" />
-                  </Icon>
-                  <Action xsi:type="ExecuteFunction">
-                    <FunctionName>generateWACCQuick</FunctionName>
-                  </Action>
-                </Control>
-
               </Group>
             </OfficeTab>
           </ExtensionPoint>
@@ -154,33 +115,24 @@
     <!-- Resources -->
     <Resources>
       <bt:Images>
-        <bt:Image id="WACCCalculator.Icon16" DefaultValue="https://localhost:3000/assets/images/icon-16.png" />
-        <bt:Image id="WACCCalculator.Icon32" DefaultValue="https://localhost:3000/assets/images/icon-32.png" />
-        <bt:Image id="WACCCalculator.Icon80" DefaultValue="https://localhost:3000/assets/images/icon-80.png" />
-        <bt:Image id="WACCCalculator.Generate16" DefaultValue="https://localhost:3000/assets/images/generate-16.png" />
-        <bt:Image id="WACCCalculator.Generate32" DefaultValue="https://localhost:3000/assets/images/generate-32.png" />
-        <bt:Image id="WACCCalculator.Generate80" DefaultValue="https://localhost:3000/assets/images/generate-80.png" />
+        <bt:Image id="WACCCalculator.Icon16" DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-16.png" />
+        <bt:Image id="WACCCalculator.Icon32" DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-32.png" />
+        <bt:Image id="WACCCalculator.Icon80" DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-80.png" />
       </bt:Images>
       
       <bt:Urls>
-        <bt:Url id="WACCCalculator.Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html" />
-        <bt:Url id="WACCCalculator.Commands.Url" DefaultValue="https://localhost:3000/commands.html" />
-        <bt:Url id="WACCCalculator.Functions.Url" DefaultValue="https://localhost:3000/functions.js" />
-        <bt:Url id="WACCCalculator.Functions.Page.Url" DefaultValue="https://localhost:3000/functions.html" />
-        <bt:Url id="WACCCalculator.Functions.Metadata.Url" DefaultValue="https://localhost:3000/functions.json" />
-        <bt:Url id="WACCCalculator.Url" DefaultValue="https://localhost:3000/taskpane.html" />
+        <bt:Url id="WACCCalculator.Taskpane.Url" DefaultValue="https://mvp-wacc-frontend.vercel.app/taskpane.html" />
+        <bt:Url id="WACCCalculator.Commands.Url" DefaultValue="https://mvp-wacc-frontend.vercel.app/commands.html" />
       </bt:Urls>
       
       <bt:ShortStrings>
         <bt:String id="WACCGroup.Label" DefaultValue="WACC Calculator" />
         <bt:String id="ShowTaskPane.Label" DefaultValue="WACC Calculator" />
-        <bt:String id="QuickGenerate.Label" DefaultValue="Generate WACC" />
         <bt:String id="ContextMenu.Label" DefaultValue="Open WACC Calculator" />
       </bt:ShortStrings>
       
       <bt:LongStrings>
         <bt:String id="ShowTaskPane.Tooltip" DefaultValue="Open the WACC Calculator task pane for guided calculation" />
-        <bt:String id="QuickGenerate.Tooltip" DefaultValue="Quickly generate WACC table with current data" />
         <bt:String id="ContextMenu.Tooltip" DefaultValue="Open WACC Calculator to calculate weighted average cost of capital" />
       </bt:LongStrings>
     </Resources>

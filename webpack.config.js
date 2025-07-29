@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -149,6 +150,25 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true,
       } : false
+    }),
+
+    // Copy manifest files and assets
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'manifest.xml',
+          to: 'manifest.xml'
+        },
+        {
+          from: 'manifest-production.xml',
+          to: 'manifest-production.xml'
+        },
+        {
+          from: 'public',
+          to: 'assets',
+          noErrorOnMissing: true
+        }
+      ]
     })
   ],
   
