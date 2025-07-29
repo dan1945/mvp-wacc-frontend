@@ -70,7 +70,6 @@
     
     /* Office Add-in Specific */
     "types": [
-      "office-js",
       "node",
       "jest"
     ]

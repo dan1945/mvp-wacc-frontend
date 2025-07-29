@@ -163,7 +163,7 @@ export const PerformanceProvider: React.FC<PerformanceProviderProps> = ({
   }, []);
 
   // Measure operation with automatic tracking
-  const measureOperation = useCallback(async <T>(name: string, operation: () => Promise<T>): Promise<T> => {
+  const measureOperation = useCallback(async function<T>(name: string, operation: () => Promise<T>): Promise<T> {
     performanceMonitor.markStart(name);
     
     try {

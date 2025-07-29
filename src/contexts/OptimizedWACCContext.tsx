@@ -512,12 +512,12 @@ export const OptimizedWACCProvider: React.FC<OptimizedWACCProviderProps> = ({
   }, [state.optimizationMetrics]);
   
   // Custom selector hook for components
-  const useSelector = useCallback(<T>(selector: StateSelector<T>): T => {
+  const useSelector = useCallback(function<T>(selector: StateSelector<T>): T {
     return useMemo(() => selector(state), [selector, state]);
   }, [state]);
   
   // Memoized context value to prevent unnecessary re-renders
-  const contextValue = useMemo<OptimizedWACCContextType>(() => ({
+  const contextValue: OptimizedWACCContextType = useMemo(() => ({
     selectInputData,
     selectBuildUpModel,
     selectCostOfDebtCalculations,
