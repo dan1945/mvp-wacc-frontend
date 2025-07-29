@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WACC Calculator</title>
+    
+    <!-- Preload Office.js for faster initialization -->
+    <link rel="preload" href="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" as="script">
+    
+    <!-- Performance and accessibility optimizations -->
+    <meta name="theme-color" content="#0078d4">
+    <meta name="description" content="WACC Calculator Office Add-in - Calculate Weighted Average Cost of Capital">
+    
+    <!-- Office Add-in specific meta tags -->
+    <meta name="OfficeApp" content="WACC Calculator">
+    <meta name="OfficeAppVersion" content="1.0.0">
+    
+    <!-- Critical CSS will be injected by Webpack -->
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==">
+    
+    <style>
+        /* Critical CSS for loading state */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #323130;
+            overflow: hidden;
+        }
+        
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #e1dfdd;
+            border-top: 3px solid #0078d4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+        
+        .loading-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #323130;
+            margin-bottom: 8px;
+        }
+        
+        .loading-subtext {
+            font-size: 14px;
+            color: #605e5c;
+            text-align: center;
+            max-width: 250px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Hide loading when app is ready */
+        .app-ready .loading-container {
+            display: none;
+        }
+        
+        /* Ensure container takes full height */
+        #container {
+            height: 100vh;
+            width: 100%;
+        }
+        
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            .loading-spinner {
+                animation: none;
+                border-top-color: #0078d4;
+            }
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .loading-container {
+                background: #ffffff;
+                border: 1px solid #000000;
+            }
+            
+            .loading-spinner {
+                border-color: #000000;
+                border-top-color: #0078d4;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading screen shown while app initializes -->
+    <div class="loading-container" id="loading-screen" role="status" aria-live="polite">
+        <div class="loading-spinner" aria-label="Loading"></div>
+        <div class="loading-text">WACC Calculator</div>
+        <div class="loading-subtext">Initializing your workspace...</div>
+    </div>
+    
+    <!-- Main application container -->
+    <div id="container" role="main" aria-label="WACC Calculator Application"></div>
+    
+    <!-- Office.js library -->
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    
+    <!-- Application scripts will be injected by Webpack -->
+    
+    <script>
+        // Remove loading screen when app is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    loadingScreen.style.transition = 'opacity 0.3s ease-out';
+                    setTimeout(function() {
+                        loadingScreen.style.display = 'none';
+                        document.body.classList.add('app-ready');
+                    }, 300);
+                }
+            }, 1000);
+        });
+        
+        // Global error handler
+        window.addEventListener('error', function(event) {
+            console.error('Global error:', event.error);
+            // In production, could report to error tracking service
+        });
+        
+        // Handle unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+            // In production, could report to error tracking service
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+# Monitoring and Alerting Configuration for WACC Calculator
+# This configuration can be used with monitoring services like DataDog, New Relic, or Grafana
+
+# Application Performance Monitoring
+performance_alerts:
+  response_time:
+    metric: "http.response_time"
+    threshold: 3000  # 3 seconds
+    severity: "warning"
+    description: "Application response time is above acceptable threshold"
+    
+  slow_response_critical:
+    metric: "http.response_time"
+    threshold: 5000  # 5 seconds
+    severity: "critical"
+    description: "Application response time is critically slow"
+    
+  error_rate:
+    metric: "http.error_rate"
+    threshold: 5  # 5% error rate
+    severity: "warning"
+    description: "HTTP error rate is elevated"
+    
+  high_error_rate:
+    metric: "http.error_rate"
+    threshold: 10  # 10% error rate
+    severity: "critical"
+    description: "HTTP error rate is critically high"
+
+# Office Add-in Specific Monitoring
+office_addin_alerts:
+  manifest_availability:
+    metric: "http.status_code"
+    endpoint: "/manifest.xml"
+    threshold: 200
+    severity: "critical"
+    description: "Office Add-in manifest is not accessible"
+    
+  taskpane_availability:
+    metric: "http.status_code"
+    endpoint: "/taskpane.html"
+    threshold: 200
+    severity: "critical"
+    description: "Task pane is not accessible"
+    
+  commands_availability:
+    metric: "http.status_code"
+    endpoint: "/commands.html"
+    threshold: 200
+    severity: "warning"
+    description: "Commands page is not accessible"
+
+# Security Monitoring
+security_alerts:
+  ssl_certificate_expiry:
+    metric: "ssl.days_until_expiry"
+    threshold: 30  # 30 days
+    severity: "warning"
+    description: "SSL certificate expires in less than 30 days"
+    
+  ssl_certificate_critical:
+    metric: "ssl.days_until_expiry"
+    threshold: 7  # 7 days
+    severity: "critical"
+    description: "SSL certificate expires in less than 7 days"
+    
+  security_headers:
+    metric: "security.headers.missing"
+    threshold: 0
+    severity: "warning"
+    description: "Required security headers are missing"
+
+# Business Logic Monitoring
+calculation_alerts:
+  wacc_calculation_errors:
+    metric: "wacc.calculation.errors"
+    threshold: 1  # Any calculation errors
+    severity: "warning"
+    description: "WACC calculation errors detected"
+    
+  excel_integration_errors:
+    metric: "excel.integration.errors"
+    threshold: 5  # 5 errors per hour
+    severity: "warning"
+    description: "Excel integration errors detected"
+
+# Infrastructure Monitoring
+infrastructure_alerts:
+  memory_usage:
+    metric: "system.memory.usage"
+    threshold: 80  # 80%
+    severity: "warning"
+    description: "Memory usage is high"
+    
+  cpu_usage:
+    metric: "system.cpu.usage"
+    threshold: 80  # 80%
+    severity: "warning"
+    description: "CPU usage is high"
+
+# Notification Channels
+notification_channels:
+  slack:
+    webhook_url: "${SLACK_WEBHOOK_URL}"
+    channel: "#alerts"
+    username: "WACC Calculator Monitor"
+    
+  email:
+    smtp_server: "${SMTP_SERVER}"
+    recipients:
+      - "devops@werxsolutions.com"
+      - "development@werxsolutions.com"
+      
+  pagerduty:
+    integration_key: "${PAGERDUTY_INTEGRATION_KEY}"
+    
+# Alert Rules
+alert_rules:
+  - name: "Critical Application Down"
+    condition: "http.status_code != 200 AND endpoint = '/taskpane.html'"
+    severity: "critical"
+    channels: ["slack", "email", "pagerduty"]
+    cooldown: 300  # 5 minutes
+    
+  - name: "Performance Degradation"
+    condition: "http.response_time > 3000"
+    severity: "warning"
+    channels: ["slack"]
+    cooldown: 600  # 10 minutes
+    
+  - name: "High Error Rate"
+    condition: "http.error_rate > 5"
+    severity: "warning"
+    channels: ["slack", "email"]
+    cooldown: 300  # 5 minutes
+    
+  - name: "SSL Certificate Expiring"
+    condition: "ssl.days_until_expiry < 30"
+    severity: "warning"
+    channels: ["email"]
+    cooldown: 86400  # 24 hours
+
+# Uptime Monitoring
+uptime_checks:
+  - name: "Main Application"
+    url: "https://werx-wacc-calculator.vercel.app/taskpane.html"
+    method: "GET"
+    expected_status: 200
+    timeout: 10
+    interval: 60  # 1 minute
+    
+  - name: "Office Add-in Manifest"
+    url: "https://werx-wacc-calculator.vercel.app/manifest.xml"
+    method: "GET"
+    expected_status: 200
+    timeout: 10
+    interval: 300  # 5 minutes
+    
+  - name: "Commands Page"
+    url: "https://werx-wacc-calculator.vercel.app/commands.html"
+    method: "GET"
+    expected_status: 200
+    timeout: 10
+    interval: 300  # 5 minutes
