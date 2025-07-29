@@ -1,71 +1,19 @@
 {
-  "version": 2,
-  "name": "werx-wacc-calculator",
-  "builds": [
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "source": "/manifest.xml",
+      "destination": "/manifest-production.xml"
     }
   ],
-  "routes": [
+  "redirects": [
     {
-      "src": "/taskpane.html",
-      "dest": "/taskpane.html",
-      "headers": {
-        "X-Frame-Options": "SAMEORIGIN",
-        "X-Content-Type-Options": "nosniff",
-        "X-XSS-Protection": "1; mode=block",
-        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
-        "Content-Security-Policy": "default-src 'self' https://appsforoffice.microsoft.com https://ajax.aspnetcdn.com https://officeapps.live.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://appsforoffice.microsoft.com https://ajax.aspnetcdn.com; style-src 'self' 'unsafe-inline' https://appsforoffice.microsoft.com https://static2.sharepointonline.com; img-src 'self' data: https:; connect-src 'self' https://appsforoffice.microsoft.com https://graph.microsoft.com; frame-src 'self' https://appsforoffice.microsoft.com;"
-      }
-    },
-    {
-      "src": "/commands.html",
-      "dest": "/commands.html",
-      "headers": {
-        "X-Frame-Options": "SAMEORIGIN",
-        "X-Content-Type-Options": "nosniff",
-        "X-XSS-Protection": "1; mode=block"
-      }
-    },
-    {
-      "src": "/manifest.xml",
-      "dest": "/manifest-production.xml",
-      "headers": {
-        "Content-Type": "application/xml",
-        "Cache-Control": "public, max-age=3600"
-      }
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=86400"
-      }
-    },
-    {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg))",
-      "dest": "/$1",
-      "headers": {
-        "Cache-Control": "public, max-age=86400"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/",
+      "destination": "/taskpane.html",
+      "permanent": false
     }
   ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
@@ -94,15 +42,43 @@
         {
           "key": "Strict-Transport-Security",
           "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' https://appsforoffice.microsoft.com https://ajax.aspnetcdn.com https://officeapps.live.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://appsforoffice.microsoft.com https://ajax.aspnetcdn.com; style-src 'self' 'unsafe-inline' https://appsforoffice.microsoft.com https://static2.sharepointonline.com; img-src 'self' data: https:; connect-src 'self' https://appsforoffice.microsoft.com https://graph.microsoft.com; frame-src 'self' https://appsforoffice.microsoft.com;"
         }
       ]
-    }
-  ],
-  "redirects": [
+    },
     {
-      "source": "/",
-      "destination": "/taskpane.html",
-      "permanent": false
+      "source": "/manifest.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
     }
   ],
   "cleanUrls": true,
