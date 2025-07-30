@@ -6,7 +6,7 @@
 
   <!-- Basic Add-in Information -->
   <Id>8B6B6C3F-8B9A-4A8A-9A8A-8B6B6C3F8B9A</Id>
-  <Version>1.0.1</Version>
+  <Version>1.0.5</Version>
   <ProviderName>Werx Solutions</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="WACC Calculator" />

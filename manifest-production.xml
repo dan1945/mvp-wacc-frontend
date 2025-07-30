@@ -6,13 +6,13 @@
 
   <!-- Basic Add-in Information -->
   <Id>8B6B6C3F-8B9A-4A8A-9A8A-8B6B6C3F8B9A</Id>
-  <Version>1.0.2</Version>
+  <Version>1.0.5</Version>
   <ProviderName>Werx Solutions</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="WACC Calculator" />
   <Description DefaultValue="Modern WACC Calculator with guided input, real-time preview, and Excel integration" />
-  <IconUrl DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-32.svg" />
-  <HighResolutionIconUrl DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-80.svg" />
+  <IconUrl DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-64.png" />
   <SupportUrl DefaultValue="https://github.com/goquantive/werx20-reportwriter" />
 
   <!-- Office App Capabilities -->
@@ -115,9 +115,9 @@
     <!-- Resources -->
     <Resources>
       <bt:Images>
-        <bt:Image id="WACCCalculator.Icon16" DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-16.svg" />
-        <bt:Image id="WACCCalculator.Icon32" DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-32.svg" />
-        <bt:Image id="WACCCalculator.Icon80" DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-80.svg" />
+        <bt:Image id="WACCCalculator.Icon16" DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-16.png" />
+        <bt:Image id="WACCCalculator.Icon32" DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-32.png" />
+        <bt:Image id="WACCCalculator.Icon80" DefaultValue="https://mvp-wacc-frontend.vercel.app/assets/images/icon-80.png" />
       </bt:Images>
       
       <bt:Urls>
